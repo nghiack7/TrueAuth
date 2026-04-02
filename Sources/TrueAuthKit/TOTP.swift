@@ -1,8 +1,8 @@
 import Foundation
 import CryptoKit
 
-struct TOTP {
-    static func generate(secret: String, time: Date = Date(), period: Int = 30, digits: Int = 6) -> String? {
+public struct TOTP {
+    public static func generate(secret: String, time: Date = Date(), period: Int = 30, digits: Int = 6) -> String? {
         guard let keyData = base32Decode(secret.uppercased().replacingOccurrences(of: " ", with: "")) else {
             return nil
         }
@@ -25,7 +25,7 @@ struct TOTP {
         return String(format: "%0\(digits)d", otp)
     }
 
-    static func remainingSeconds(period: Int = 30) -> Int {
+    public static func remainingSeconds(period: Int = 30) -> Int {
         period - Int(Date().timeIntervalSince1970) % period
     }
 
@@ -53,7 +53,7 @@ struct TOTP {
 }
 
 extension String {
-    func leftPadded(to length: Int, with char: Character = "0") -> String {
+    public func leftPadded(to length: Int, with char: Character = "0") -> String {
         String(repeating: char, count: max(0, length - count)) + self
     }
 }

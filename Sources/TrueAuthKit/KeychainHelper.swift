@@ -2,11 +2,11 @@ import Foundation
 import Security
 import CryptoKit
 
-struct KeychainHelper {
+public struct KeychainHelper {
     private static let service = "com.trueprofit.trueauth"
     private static let account = "encryption-key"
 
-    static func getOrCreateKey() -> SymmetricKey {
+    public static func getOrCreateKey() -> SymmetricKey {
         if let existing = getKey() { return existing }
         let key = SymmetricKey(size: .bits256)
         saveKey(key)

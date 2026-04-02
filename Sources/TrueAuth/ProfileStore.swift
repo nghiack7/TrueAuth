@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import CryptoKit
+import TrueAuthKit
 
 struct Profile: Identifiable, Codable {
     var id = UUID()

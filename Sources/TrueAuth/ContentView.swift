@@ -1,5 +1,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
+import TrueAuthKit
 
 struct ContentView: View {
     @EnvironmentObject var store: ProfileStore

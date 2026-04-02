@@ -4,10 +4,21 @@ import PackageDescription
 let package = Package(
     name: "TrueAuth",
     platforms: [.macOS(.v13)],
+    products: [
+        .library(
+            name: "TrueAuthKit",
+            targets: ["TrueAuthKit"]
+        )
+    ],
     targets: [
+        .target(
+            name: "TrueAuthKit",
+            path: "Sources/TrueAuthKit"
+        ),
         .executableTarget(
             name: "TrueAuth",
-            path: "Sources"
+            dependencies: ["TrueAuthKit"],
+            path: "Sources/TrueAuth"
         )
     ]
 )

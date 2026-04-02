@@ -111,6 +111,45 @@ Click the **pencil** icon next to any profile to edit its name or secret.
 
 This app uses macOS-specific frameworks (AppKit, Security/Keychain, CoreImage) that have no cross-platform equivalent.
 
+## Use as a library (TrueAuthKit)
+
+Others can use the TOTP and QR parsing logic in their own Swift projects:
+
+```swift
+// Package.swift
+dependencies: [
+    .package(url: "https://github.com/nghiack7/TrueAuth.git", from: "1.0.0")
+]
+
+// Target
+.target(name: "YourApp", dependencies: [
+    .product(name: "TrueAuthKit", package: "TrueAuth")
+])
+```
+
+```swift
+import TrueAuthKit
+
+// Generate a TOTP code
+if let code = TOTP.generate(secret: "JBSWY3DPEHPK3PXP") {
+    print("Code: \(code)")  // e.g. "123456"
+}
+
+// Remaining seconds until next code
+let remaining = TOTP.remainingSeconds()  // e.g. 17
+
+// Parse an otpauth:// URI
+if let auth = QRCodeParser.parse("otpauth://totp/GitHub:user?secret=JBSWY3DPEHPK3PXP&issuer=GitHub") {
+    print(auth.name)    // "GitHub: user"
+    print(auth.secret)  // "JBSWY3DPEHPK3PXP"
+}
+
+// Read QR code from image file
+if let auth = QRCodeParser.readFromImage(imageURL) {
+    print(auth.secret)
+}
+```
+
 ## How it works
 
 1. **TOTP Algorithm**: Implements [RFC 6238](https://datatracker.ietf.org/doc/html/rfc6238) — HMAC-SHA1 based time-based one-time passwords

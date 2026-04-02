@@ -1,14 +1,14 @@
 import Foundation
 import CoreImage
 
-struct QRCodeParser {
-    struct OTPAuth {
-        let name: String
-        let secret: String
+public struct QRCodeParser {
+    public struct OTPAuth {
+        public let name: String
+        public let secret: String
     }
 
     /// Parse otpauth://totp/LABEL?secret=SECRET&issuer=ISSUER
-    static func parse(_ uri: String) -> OTPAuth? {
+    public static func parse(_ uri: String) -> OTPAuth? {
         guard let url = URL(string: uri),
               url.scheme == "otpauth",
               url.host == "totp" else { return nil }
@@ -26,7 +26,7 @@ struct QRCodeParser {
     }
 
     /// Read QR code from image file and extract otpauth:// URI
-    static func readFromImage(_ url: URL) -> OTPAuth? {
+    public static func readFromImage(_ url: URL) -> OTPAuth? {
         guard let ciImage = CIImage(contentsOf: url) else { return nil }
         let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
         let features = detector?.features(in: ciImage) as? [CIQRCodeFeature] ?? []
