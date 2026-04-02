@@ -1,0 +1,6 @@
+.build/
+.omc/
+*.enc
+secrets.txt
+.DS_Store
+.swiftpm/
